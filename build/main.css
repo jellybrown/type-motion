@@ -1,0 +1,127 @@
+@charset "UTF-8";
+/* 초기화 */
+* {
+  box-sizing: border-box; }
+
+p,
+ul,
+li,
+a,
+span,
+h1,
+h2,
+body {
+  margin: 0;
+  padding: 0; }
+
+li {
+  list-style: none; }
+
+a {
+  text-decoration: none; }
+
+/* custom */
+.hide {
+  opacity: 0;
+  visibility: hidden; }
+
+.visible {
+  opacity: 1;
+  visibility: visible; }
+
+.dark {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8); }
+
+button {
+  border: none;
+  margin: 0 1.5em;
+  padding: 10px 23px;
+  border-radius: 18px;
+  background: #ececec;
+  color: #000;
+  transition: 0.3s;
+  cursor: pointer; }
+  button:hover {
+    color: #fff;
+    background: #c6c6c6;
+    transition: 0.3s; }
+
+/* header */
+body {
+  background: #363636;
+  position: relative; }
+
+header {
+  width: 100%;
+  padding: 2em; }
+  header h1 {
+    text-align: center;
+    color: #ececec; }
+
+.header_list {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 2em 0; }
+
+/* main */
+/* modal */
+.modal {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh; }
+
+.popup {
+  position: absolute;
+  background: #fff;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  height: 350px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); }
+
+.popup_header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  width: 80%; }
+  .popup_header h2 {
+    text-align: center;
+    flex: 1; }
+  .popup_header .close {
+    width: 15px;
+    height: 15px;
+    cursor: pointer; }
+
+.user_text {
+  width: 75%;
+  margin: 7px 0;
+  display: flex;
+  align-items: center; }
+
+label {
+  width: 15%; }
+
+input {
+  flex: 1;
+  outline: none;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px 20px; }
+
+.add_btn {
+  margin-top: 30px;
+  border-radius: 5px; }
+  .add_btn:hover {
+    background: #3478ec; }
