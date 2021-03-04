@@ -1,5 +1,12 @@
 @charset "UTF-8";
 /* 초기화 */
+body {
+  height: 100vh;
+  overflow: hidden; }
+
+.main {
+  height: 100%; }
+
 * {
   box-sizing: border-box; }
 
@@ -71,6 +78,9 @@ header {
   padding: 2em 0; }
 
 /* main */
+.main {
+  height: 100%; }
+
 /* modal */
 .modal {
   position: absolute;

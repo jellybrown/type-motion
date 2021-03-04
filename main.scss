@@ -1,4 +1,11 @@
 /* 초기화 */
+body {
+  height: 100vh;
+  overflow: hidden;
+}
+.main {
+  height: 100%;
+}
 * {
   box-sizing: border-box;
 }
@@ -77,6 +84,9 @@ header {
 }
 
 /* main */
+.main {
+  height: 100%;
+}
 /* modal */
 .modal {
   position: absolute;

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Motion - 유진</title>
     <link rel="stylesheet" href="./build/main.css">
-    <script defer src="./build/main.js"></script>
+    <script type="module" src="./build/app.js" defer></script>
 </head>
 
 <body>
@@ -20,11 +20,7 @@
         </div>
     </header><!-- header -->
     <section class="main">
-        <ul class="main_list">
-            <li>
 
-            </li>
-        </ul>
     </section><!-- main -->
     <div class="dark hide"></div><!-- modal visible시 dark도 visible -->
     <section class="modal hide">
@@ -35,11 +31,11 @@
             </div>
 
             <div class="user_text">
-                <label for="input1">제목</label>
+                <label for="input1" class="first">제목</label>
                 <input type="text" id="input1">
             </div>
             <div class="user_text">
-                <label for="input2">링크</label>
+                <label for="input2" class="second">링크</label>
                 <input type="text" id="input2">
             </div>
             <button class="add_btn">추가하기</button>
