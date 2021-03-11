@@ -5,7 +5,6 @@ export class PageComponent extends BaseComponent<HTMLUListElement> {
     // PageComponent는 constructor에 ul태그가 만들어진다.
     constructor() {
         super('<ul class="page">This is pageComponent</ul>')
-        
     }
 
     // PageComponent에는 attachTo라는 메서드가 있다.

@@ -1,8 +1,7 @@
 @charset "UTF-8";
 /* 초기화 */
 body {
-  height: 100vh;
-  overflow: hidden; }
+  height: 100vh; }
 
 .main {
   height: 100%; }
