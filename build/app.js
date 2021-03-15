@@ -8,13 +8,13 @@ var App = /** @class */ (function () {
         this.page = new PageComponent();
         this.page.attachTo(appRoot);
         var image = new ImageComponent('Image test', 'https://picsum.photos/600/300');
-        image.attachTo(appRoot, 'beforeend');
+        this.page.addChild(image);
         var note = new NoteComponent('Note test', '헤헤헤헤헤헤');
-        note.attachTo(appRoot, 'beforeend');
+        this.page.addChild(note);
         var todo = new TodoComponent('Todo test', '책읽기');
-        todo.attachTo(appRoot, 'beforeend');
+        this.page.addChild(todo);
         var video = new VideoComponent('Video test', 'https://www.youtube.com/embed/0I647GU3Jsc');
-        video.attachTo(appRoot, 'beforeend');
+        this.page.addChild(video);
     }
     return App;
 }());
