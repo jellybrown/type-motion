@@ -4,6 +4,7 @@ import { VideoComponent } from './components/page/item/video.js';
 import { ImageComponent } from './components/page/item/image.js';
 import { PageComponent } from './components/page/page.js';
 var App = /** @class */ (function () {
+    // 13번째줄의 attachTo, 그 외 addChild를 쓰기위해 & 로 page를 정의
     function App(appRoot) {
         this.page = new PageComponent();
         this.page.attachTo(appRoot);

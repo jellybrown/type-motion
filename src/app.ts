@@ -7,7 +7,7 @@ import { Composable, PageComponent } from './components/page/page.js';
 import { Component } from './components/component.js';
 class App {
     private readonly page: Component & Composable; // page: 뭔지 모르겟지만, 이런 인터페이스가 사용가능한 것
-    
+                            // 13번째줄의 attachTo, 그 외 addChild를 쓰기위해 & 로 page를 정의
     constructor(appRoot: HTMLElement) {
         this.page = new PageComponent();
         this.page.attachTo(appRoot);
