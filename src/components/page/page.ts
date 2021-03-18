@@ -7,7 +7,15 @@ export interface Composable {
 
 type OnCloseListener = () => void; //아무것도 반환하지 않는 타입을 정의한다.
 
-class PageItemComponent extends BaseComponent<HTMLElement> implements Composable{
+interface SectionContainer extends Component, Composable {
+    setOnCloseListener(listener: OnCloseListener):void;
+}
+
+type SectionContainerConstructor = {
+    new (): SectionContainer; // 어떤 클래스라도 괜찮다.
+}
+
+export class PageItemComponent extends BaseComponent<HTMLElement> implements SectionContainer {
     private closeListener?: OnCloseListener;
     constructor() {
         super(`<li class="page-item">
@@ -38,12 +46,16 @@ class PageItemComponent extends BaseComponent<HTMLElement> implements Composable
 export class PageComponent extends BaseComponent<HTMLUListElement> implements Composable {
     
     // PageComponent는 constructor에 ul태그가 만들어진다.
-    constructor() {
+    constructor(private pageItemConstructor: SectionContainerConstructor) {
+        
         super('<ul class="page"></ul>');
+
+
     }
+    
     // 0. PageComponent의 addChild 메서드는 붙이는 기능과 없애는 기능이 있다.
    addChild(section: Component) {
-       const item = new PageItemComponent();
+       const item = new this.pageItemConstructor(); // ⭐️ 전달받은 인자로 새로운 객체를 생성
        item.addChild(section);
        item.attachTo(this.element, 'beforeend');
        item.setOnCloseListener(() => { // 1. 새로 생성되는 item의 setOnCloseListener를 호출한다.
