@@ -1,4 +1,4 @@
-import { isTemplateExpression } from '../../../node_modules/typescript/lib/typescript.js';
+
 import { BaseComponent, Component } from './../component.js';
 
 export interface Composable {
@@ -7,16 +7,16 @@ export interface Composable {
 
 type OnCloseListener = () => void; //아무것도 반환하지 않는 타입을 정의한다.
 
-interface SectionContainer extends Component, Composable {
+export interface SectionContainer extends Component, Composable {
     setOnCloseListener(listener: OnCloseListener):void;
 }
 
 type SectionContainerConstructor = {
-    new (): SectionContainer; // 어떤 클래스라도 괜찮다.
+    new (): SectionContainer; // ⭐️ SectionContainer 형태라면 어떤 클래스라도 괜찮다.
 }
 
 export class PageItemComponent extends BaseComponent<HTMLElement> implements SectionContainer {
-    private closeListener?: OnCloseListener;
+    private closeListener?: OnCloseListener; // 그냥 콜백함수를 저장하는 아이를 만든다. 콜백함수를 밑에서 쓸 거기 떄문
     constructor() {
         super(`<li class="page-item">
         <section class="page-item__body"></section>
@@ -63,3 +63,5 @@ export class PageComponent extends BaseComponent<HTMLUListElement> implements Co
        })
    }
 }
+// ⭐️ 1. new PageItemComponent -> 2. new this.pageItemCon~ 
+// ⭐️ PageItemComponent 안에서 PageComponent를 부르는것은 좋지않다. 
