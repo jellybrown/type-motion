@@ -7,6 +7,15 @@ type OnSubmitListener = () => void;
 
 //type ContentType = 'image'| 'video' | 'todo' | 'note';
 
+export interface MediaData {
+    readonly title: string;
+    readonly url: string;
+}
+
+export interface TextData {
+    readonly title: string;
+    readonly body: string;
+}
 
 export class Dialog extends BaseComponent<HTMLElement> implements Composable{
         private closeListener?: OnCloseListener;

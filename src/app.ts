@@ -1,6 +1,5 @@
 import { MediaSectionInput } from './components/page/dialog/input/media-input.js';
-import { Dialog } from './components/page/dialog/dialog.js';
-
+import { Dialog, MediaData, TextData } from './components/page/dialog/dialog.js';
 import { TodoComponent } from './components/page/item/todo.js';
 import { NoteComponent } from './components/page/item/note.js';
 import { VideoComponent } from './components/page/item/video.js';
@@ -9,7 +8,7 @@ import { Composable, PageComponent, PageItemComponent } from './components/page/
 import { Component } from './components/component.js';
 import { TextSectionInput } from './components/page/dialog/input/text-input.js';
 
-type InputComponentConstructor<T = MediaSectionInput | TextSectionInput> = {
+type InputComponentConstructor<T = (MediaData | TextData) & Component> = {
     new(): T;
 }
 
@@ -43,7 +42,7 @@ class App {
 
     }
 
-    private bindElementToDialog<T extends MediaSectionInput | TextSectionInput>(
+    private bindElementToDialog<T extends (MediaData | TextData) & Component>(
         selector: string, 
         InputComponent: InputComponentConstructor<T>,
         makeSection: (input: T) => Component) {
