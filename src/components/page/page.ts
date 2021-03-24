@@ -18,7 +18,7 @@ type SectionContainerConstructor = {
 export class PageItemComponent extends BaseComponent<HTMLElement> implements SectionContainer {
     private closeListener?: OnCloseListener; // 그냥 콜백함수를 저장하는 아이를 만든다. 콜백함수를 밑에서 쓸 거기 떄문
     constructor() {
-        super(`<li class="page-item">
+        super(`<li class="page-item" draggable="true">
         <section class="page-item__body"></section>
         <div class="page-item__controls">
             <span class="close">&times;</span>
@@ -28,6 +28,23 @@ export class PageItemComponent extends BaseComponent<HTMLElement> implements Sec
         close.onclick = () => {
             this.closeListener && this.closeListener(); //3. 만약 closeListener가 등록 된다면(있다면), 호출한다.
         }
+
+        this.element.addEventListener('dragstart', (event: DragEvent) => {
+            this.onDragStart(event);
+        })
+
+        this.element.addEventListener('dragend', (event: DragEvent) => {
+            this.onDragEnd(event);
+        })
+    }
+
+    onDragStart(event: DragEvent) {
+        console.log("onDragStart");
+        console.log(event);
+    }
+    onDragEnd(event: DragEvent) {
+        console.log("onDragEnd");
+        console.log(event);
     }
 
     addChild(child: Component) { // 정의해둔 Component 인터페이스
@@ -35,7 +52,6 @@ export class PageItemComponent extends BaseComponent<HTMLElement> implements Sec
         child.attachTo(container);
     }
 
-   
     setOnCloseListener(listener: OnCloseListener) { // 2. PageItemComponent는 이러한 함수를 가지고 있다.
         this.closeListener = listener; // 받아온 인수를 등록한다.
     }
@@ -49,10 +65,23 @@ export class PageComponent extends BaseComponent<HTMLUListElement> implements Co
     constructor(private pageItemConstructor: SectionContainerConstructor) {
         
         super('<ul class="page"></ul>');
+        this.element.addEventListener('dragover', (event: DragEvent) => {
+            this.onDragOver(event);
+        })
 
+        this.element.addEventListener('drop', (event: DragEvent) => {
+            this.onDragDrop(event);
+        })
 
     }
-    
+    onDragOver(event: DragEvent) {
+        event.preventDefault();
+        console.log("onDragOver")
+    }
+    onDragDrop(event: DragEvent) {
+        event.preventDefault();
+        console.log("onDragDrop")
+    }
     // 0. PageComponent의 addChild 메서드는 붙이는 기능과 없애는 기능이 있다.
    addChild(section: Component) {
        const item = new this.pageItemConstructor(); // ⭐️ 전달받은 인자로 새로운 객체를 생성

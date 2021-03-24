@@ -16,6 +16,11 @@ var App = /** @class */ (function () {
         this.bindElementToDialog('.video_btn', MediaSectionInput, function (input) { return new VideoComponent(input.title, input.url); });
         this.bindElementToDialog('.note_btn', TextSectionInput, function (input) { return new NoteComponent(input.title, input.body); });
         this.bindElementToDialog('.task_btn', TextSectionInput, function (input) { return new TodoComponent(input.title, input.body); });
+        this.page.addChild(new ImageComponent('유진~~~', 'https://picsum.photos/800/400'));
+        this.page.addChild(new ImageComponent('졸려...', 'https://picsum.photos/800/500'));
+        this.page.addChild(new ImageComponent('헤헤헤', 'https://picsum.photos/600/500'));
+        this.page.addChild(new NoteComponent('노트!!', '안녕?'));
+        this.page.addChild(new NoteComponent('~~~~힘드러~~~', '안녕?'));
     }
     App.prototype.bindElementToDialog = function (selector, InputComponent, makeSection) {
         var _this = this;

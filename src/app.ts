@@ -39,7 +39,11 @@ class App {
         TextSectionInput, 
         (input: TextSectionInput) => new TodoComponent(input.title, input.body));
 
-
+            this.page.addChild(new ImageComponent('유진~~~', 'https://picsum.photos/800/400'))
+            this.page.addChild(new ImageComponent('졸려...', 'https://picsum.photos/800/500'))
+            this.page.addChild(new ImageComponent('헤헤헤', 'https://picsum.photos/600/500'))
+            this.page.addChild(new NoteComponent('노트!!', '안녕?'))
+            this.page.addChild(new NoteComponent('~~~~힘드러~~~', '안녕?'))
     }
 
     private bindElementToDialog<T extends (MediaData | TextData) & Component>(
