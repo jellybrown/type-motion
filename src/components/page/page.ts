@@ -82,6 +82,8 @@ export class PageItemComponent extends BaseComponent<HTMLElement> implements Sec
 
 export class PageComponent extends BaseComponent<HTMLUListElement> implements Composable {
   // PageComponent는 constructor에 ul태그가 만들어진다.
+  private dragTarget?: SectionContainer;
+  private dropTarget?: SectionContainer;
   constructor(private pageItemConstructor: SectionContainerConstructor) {
     super('<ul class="page"></ul>');
     this.element.addEventListener('dragover', (event: DragEvent) => {
@@ -99,6 +101,14 @@ export class PageComponent extends BaseComponent<HTMLUListElement> implements Co
   onDragDrop(event: DragEvent) {
     event.preventDefault();
     console.log('onDragDrop');
+    if (!this.dropTarget) {
+      // dropTarget 없으면 종료
+      return;
+    }
+    if (this.dragTarget && this.dragTarget !== this.dropTarget) {
+      this.dragTarget.removeFrom(this.element); // 나로부터 삭제
+      this.dropTarget.attach(this.dragTarget, 'beforebegin');
+    }
   }
   // 0. PageComponent의 addChild 메서드는 붙이는 기능과 없애는 기능이 있다.
   addChild(section: Component) {
@@ -111,6 +121,22 @@ export class PageComponent extends BaseComponent<HTMLUListElement> implements Co
     });
     item.setOnDragStateListener((target: SectionContainer, state: DragState) => {
       // 새로생성되는 item의 dragListener를 호출한다.
+      switch (state) {
+        case 'start':
+          this.dragTarget = target;
+          break;
+        case 'stop':
+          this.dragTarget = undefined;
+          break;
+        case 'enter':
+          this.dropTarget = target;
+          break;
+        case 'leave':
+          this.dropTarget = undefined;
+          break;
+        default:
+          throw new Error(`unsupported state:${state}`);
+      }
     });
   }
 }
