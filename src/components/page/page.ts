@@ -11,6 +11,7 @@ type OnDragStateListener<T extends Component> = (target: T, state: DragState) =>
 interface SectionContainer extends Component, Composable {
   setOnCloseListener(listener: OnCloseListener): void;
   setOnDragStateListener(listener: OnDragStateListener<SectionContainer>): void;
+  muteChildren(state: 'mute' | 'unmute'): void;
 }
 
 type SectionContainerConstructor = {
@@ -78,10 +79,19 @@ export class PageItemComponent extends BaseComponent<HTMLElement> implements Sec
   setOnDragStateListener(listener: OnDragStateListener<PageItemComponent>) {
     this.dragStateListener = listener;
   }
+
+  muteChildren(state: 'mute' | 'unmute') {
+    if (state === 'mute') {
+      this.element.classList.add('mute-children');
+    } else {
+      this.element.classList.remove('mute-children');
+    }
+  }
 }
 
 export class PageComponent extends BaseComponent<HTMLUListElement> implements Composable {
   // PageComponent는 constructor에 ul태그가 만들어진다.
+  private children = new Set<SectionContainer>();
   private dragTarget?: SectionContainer;
   private dropTarget?: SectionContainer;
   constructor(private pageItemConstructor: SectionContainerConstructor) {
@@ -118,15 +128,19 @@ export class PageComponent extends BaseComponent<HTMLUListElement> implements Co
     item.setOnCloseListener(() => {
       // 1. 새로 생성되는 item의 setOnCloseListener를 호출한다.
       item.removeFrom(this.element); //  이러한 함수를 넘긴다. (removeFrom은 baseComponent에서 받음)
+      this.children.delete(item);
     });
+    this.children.add(item);
     item.setOnDragStateListener((target: SectionContainer, state: DragState) => {
       // 새로생성되는 item의 dragListener를 호출한다.
       switch (state) {
         case 'start':
           this.dragTarget = target;
+          this.updateSections('mute');
           break;
         case 'stop':
           this.dragTarget = undefined;
+          this.updateSections('unmute');
           break;
         case 'enter':
           this.dropTarget = target;
@@ -137,6 +151,11 @@ export class PageComponent extends BaseComponent<HTMLUListElement> implements Co
         default:
           throw new Error(`unsupported state:${state}`);
       }
+    });
+  }
+  private updateSections(state: 'mute' | 'unmute') {
+    this.children.forEach((section: SectionContainer) => {
+      section.muteChildren(state);
     });
   }
 }
